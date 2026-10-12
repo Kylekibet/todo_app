@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% from "macros.html" import floating_field %}
+{% block title %}{{ page_title or 'Add task' }}{% endblock %}
+{% block content %}
+<div class="container pt-5">
+  <div class="col-lg-4 col-md-6 mx-auto mt-5">
+    <form method="POST" action="{{ form_action }}" novalidate >
+      {{ form.hidden_tag() }} {% for field in form if field.type not in
+      ('CSRFTokenField', 'SubmitField') %} {{ floating_field(field) }} {% endfor
+      %} {{ form.add(class="btn btn-primary w-100", value=button_text or 'Add task') }}
+    </form>
+  </div>
+</div>
+{{ form.hidden_tag() }}
+{% endblock %}

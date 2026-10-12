@@ -1,0 +1,17 @@
+{% macro nav_link(endpoint, name) %}
+<li>
+  <a
+    href="{{ url_for(endpoint)}}"
+    class="nav-link {{ 'active' if request.endpoint == endpoint else '' }}"
+  >
+    {{ name }}
+  </a>
+</li>
+{% endmacro %} {% macro floating_field(field) %}
+<div class="form-floating mb-3">
+  {{ field(class="form-control" + (" is-invalid" if field.errors else "")) }} {{
+  field.label }} {% for error in field.errors %}
+  <div class="invalid-feedback">{{ error }}</div>
+  {% endfor %}
+</div>
+{% endmacro %}

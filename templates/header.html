@@ -1,0 +1,26 @@
+{% from "macros.html" import nav_link %}
+{% from 'bootstrap5/utils.html' import render_icon %}
+<div class="container">
+  <header
+    class="d-flex flex-wrap align-items-center py-3 border-bottom"
+  >
+    <div class="col-md-4 col-12 mb-2 mb-md-0 text-center text-md-start">
+      <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+        {{ render_icon('plus', size='2em') }}
+        <span class="fs-4">Personal To-Do</span>
+      </a>
+    </div>
+    <div class="col-12 col-md-8 text-end">
+      <ul class="nav nav-pills justify-content-center justify-content-md-end">
+        {% if current_user.is_authenticated %}
+        {{ nav_link('pages.view_categories', 'View categories')}}
+        {{ nav_link('auth.log_out', 'Log out')}}
+        {% else %}
+        {{ nav_link('pages.home', 'Home')}}
+        {{ nav_link('auth.log_in', 'Log in')}}
+        {{ nav_link('auth.sign_up', 'Sign up')}}
+        {% endif %}
+      </ul>
+    </div>
+  </header>
+</div>

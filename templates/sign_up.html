@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% block title %}sign up{% endblock %} {% macro
+floating_field(field) %}
+<div class="form-floating mb-3">
+  {{ field(class="form-control" + (" is-invalid" if field.errors else "")) }} {{
+  field.label }} {% for error in field.errors %}
+  <div class="invalid-feedback">{{ error }}</div>
+  {% endfor %}
+</div>
+{% endmacro %} {% block content %}
+<div class="container pt-5">
+  <div class="col-lg-4 col-md-6 mx-auto mt-5">
+    <form method="POST" novalidate>
+      {{ form.hidden_tag() }} {% for field in form if field.type not in
+      ('CSRFTokenField', 'SubmitField') %} {{ floating_field(field) }} {% endfor
+      %} {{ form.submit(class="btn btn-primary w-100") }}
+    </form>
+  </div>
+</div>
+{% endblock %}

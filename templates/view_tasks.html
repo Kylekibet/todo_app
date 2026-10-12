@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block title %}{{ category_name }}{% endblock %} {%
+block content %}
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h2 mb-0">{{ category_name }}</h1>
+    <div>
+      <a href="{{ url_for('pages.add_task') }}" class="btn btn-primary"
+        >Add Task</a
+      >
+      <a href="{{ url_for('pages.add_category') }}" class="btn btn-primary"
+        >Add Category</a
+      >
+    </div>
+  </div>
+
+  {% if tasks %}
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Due</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for task in tasks %}
+        <tr>
+          <td
+            class="{{ 'text-decoration-line-through text-body-secondary' if task.done }}"
+          >
+            {{ task.title }}
+          </td>
+          <td>
+            {% if task.date_due %} {{ task.date_due.strftime('%d %b %Y') }} {%
+            else %}
+            <span class="text-body-secondary">&mdash;</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if task.done %}
+            <span class="badge text-bg-success">Done</span>
+            {% else %}
+            <span class="badge text-bg-warning">Pending</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="text-center py-5 text-body-secondary">
+    <p class="lead">No tasks in this category yet.</p>
+    <a href="{{ url_for('pages.add_task') }}" class="btn btn-primary"
+      >Add a task</a
+    >
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

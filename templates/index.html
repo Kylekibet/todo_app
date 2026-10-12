@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% from 'bootstrap5/form.html' import render_icon %}
+{% block title %}Home{% endblock %} {% block content %}
+<div class="bg-body-tertiary">
+  <div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img
+          src="{{ url_for('static', filename='checkboard-small.png') }}"
+          class="d-block mx-lg-auto"
+          alt="Bootstrap Themes"
+          height="500"
+          loading="lazy"
+        />
+      </div>
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">
+          Less chaos. More done.
+        </h1>
+        <p class="lead">
+          Plan your day, organise your life, and tick things off as you go.
+          Create a free account and build your first list in under a minute.
+        </p>
+        {% if not current_user.is_authenticated %}
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          <a class="btn btn-primary btn-lg px-4 me-md-2"> Sign Up </a>
+          <a
+            href="{{ url_for('auth.log_in')}}"
+            class="btn btn-outline-secondary btn-lg px-4"
+          >
+            Sign In
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
