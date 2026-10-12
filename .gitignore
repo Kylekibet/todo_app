@@ -219,5 +219,5 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-#the ones i added
+#the ones kyle added
 .DS_Store
