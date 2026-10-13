@@ -24,7 +24,7 @@
       <tbody>
         {% for category, due_count in rows %}
         <tr>
-          <td>{{ category.name }}</td>
+          <td>{{ category.name }} <a href="{{ url_for('pages.edit_category', category_id=category.id) }}">edit</a> <a href="{{ url_for('pages.delete_category', category_id=category.id) }}">delete</a></td>
           <td>{{ due_count }}</td>
           <td>
             <a href="{{ url_for('pages.view_tasks', category_id=category.id) }}" class="btn btn-secondary">view</a>
