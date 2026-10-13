@@ -12,4 +12,12 @@
   </div>
 </div>
 {{ form.hidden_tag() }}
+<script>
+  const due = document.getElementById('date_due');
+  if (due && !due.value) {
+    const d = new Date(Date.now() + 60 * 60 * 1000);          // now + 1 hour
+    d.setMinutes(d.getMinutes() - d.getTimezoneOffset());     // shift to local time
+    due.value = d.toISOString().slice(0, 16);                 // format: YYYY-MM-DDTHH:MM
+  }
+</script>
 {% endblock %}
