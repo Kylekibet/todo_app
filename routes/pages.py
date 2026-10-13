@@ -137,6 +137,47 @@ def view_categories():
 
     return render_template('view_categories.html', rows=rows, uncategorized_due=uncategorized_due)
 
+@pages_bp.route('/delete/category/<int:category_id>')
+@login_required
+def delete_category(category_id):
+    category = db.session.scalar(
+        select(Category).where(
+            Category.id == category_id, 
+            Category.user_id == current_user.id
+        )
+    )
+
+    if category is None:
+        abort(404)
+
+    # Option 1: Reassign all tasks in this category to "Uncategorized" (None)
+    db.session.execute(
+        db.update(Task)
+        .where(Task.category_id == category.id)
+        .values(category_id=None)
+    )
+
+    # Now safely delete the category
+    db.session.delete(category)
+    db.session.commit()
+    
+    flash('Category deleted. Any remaining tasks were moved to Uncategorized.', 'success')
+    return redirect(url_for('pages.view_categories'))
+
+@pages_bp.route('/delete/task/<int:task_id>')
+@login_required
+def delete_task(task_id):
+    task = db.session.scalar(select(Task).where(Task.id == task_id, Task.user_id == current_user.id))
+
+    if task is None:
+        abort(404)
+    category_id = task.category_id if task.category_id is not None else 0
+    
+    print(f"deleteing {task} task")
+    db.session.delete(task)
+    db.session.commit()
+    return redirect(url_for('pages.view_tasks', category_id=category_id))
+
 
         
     
