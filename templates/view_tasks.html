@@ -29,7 +29,7 @@ block content %}
           <td
             class="{{ 'text-decoration-line-through text-body-secondary' if task.done }}"
           >
-            {{ task.title }}
+            {{ task.title }} <a href="{{ url_for('pages.task_edit', task_id=task.id) }}">edit</a> <a href="{{ url_for('pages.delete_task', task_id=task.id)}}">delete</a>
           </td>
           <td>
             {% if task.date_due %} {{ task.date_due.strftime('%d %b %Y') }} {%
