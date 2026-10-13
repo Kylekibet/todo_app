@@ -1,4 +1,4 @@
-from wtforms import StringField, SubmitField, PasswordField, SelectField, DateField
+from wtforms import StringField, SubmitField, PasswordField, SelectField, EmailField, DateTimeLocalField
 from wtforms.validators import DataRequired, Email, Optional
 from flask_wtf import FlaskForm
 from flask_login import current_user
@@ -7,7 +7,11 @@ from models import db, Category
 class AddTask(FlaskForm):
     task = StringField('Task', validators=[DataRequired()], render_kw={"placeholder": "ADD Task"})
     category_id = SelectField('Category', coerce=int)
-    date_due = DateField('Due date', validators=[Optional()])
+    date_due = DateTimeLocalField(
+        'Due date and time',
+        format='%Y-%m-%dT%H:%M',
+        validators=[Optional()],
+    )
     add = SubmitField('Add Task')
 
     def __init__(self, *args, **kwargs):
@@ -24,14 +28,14 @@ class AddCategory(FlaskForm):
     add = SubmitField('Add Category')
     
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()], render_kw={"placeholder": "name@example.com"})
+    email = EmailField('Email', validators=[DataRequired(), Email()], render_kw={"placeholder": "name@example.com"})
     password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Password"})
     submit = SubmitField('Log In')
     
 
 class RegisterUser(FlaskForm):
-    name = StringField("Name", validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()], render_kw={"placeholder": "name@example.com"})
-    username = StringField('Username', validators=[DataRequired()])
+    name = StringField("Name", validators=[DataRequired()], render_kw={"placeholder": "John Doe"})
+    email = EmailField('Email', validators=[DataRequired(), Email()], render_kw={"placeholder": "name@example.com"})
+    username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "John_doe"})
     password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Password"})
     submit = SubmitField('Register')  
