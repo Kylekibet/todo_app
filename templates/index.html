@@ -22,7 +22,7 @@
         </p>
         {% if not current_user.is_authenticated %}
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <a class="btn btn-primary btn-lg px-4 me-md-2"> Sign Up </a>
+          <a class="btn btn-primary btn-lg px-4 me-md-2" href="{{ url_for('auth.sign_up')}}"> Sign Up </a>
           <a
             href="{{ url_for('auth.log_in')}}"
             class="btn btn-outline-secondary btn-lg px-4"
