@@ -31,7 +31,7 @@ class Category(db.Model):
     __table_args__ = (UniqueConstraint('user_id', 'name'),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(String(50))   # no longer globally unique
+    name: Mapped[str] = mapped_column(String(50)) 
 
     user_id: Mapped[int] = mapped_column(ForeignKey('user.id'))
     user: Mapped["User"] = relationship(back_populates="categories")
